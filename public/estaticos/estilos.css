@@ -1,0 +1,1992 @@
+/* ¡Paren la nave! — una sala de control de misión de los 70: tinta, naranja de
+   seguridad, rótulos condensados y cifras de instrumento. */
+
+@font-face {
+  font-family: "Hombros";
+  src: url("fuentes/big-shoulders-display-latin-800-normal.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hombros";
+  src: url("fuentes/big-shoulders-display-latin-900-normal.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hombros";
+  src: url("fuentes/big-shoulders-display-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex";
+  src: url("fuentes/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex";
+  src: url("fuentes/ibm-plex-sans-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex";
+  src: url("fuentes/ibm-plex-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex";
+  src: url("fuentes/ibm-plex-sans-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex Mono";
+  src: url("fuentes/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex Mono";
+  src: url("fuentes/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  --tinta: #07090e;
+  --fondo-2: #0d1118;
+  --placa: #11161f;
+  --placa-2: #161c27;
+  --linea: #232b39;
+  --linea-fuerte: #343f52;
+  --papel: #ece6d6;
+  --gris: #8b93a4;
+  --gris-2: #5d6576;
+  --acento: #ff5a1f;
+  --acento-2: #ff8a4c;
+  --sobre-acento: #140600;
+  --bien: #6ee7a0;
+  --mal: #ff4d4d;
+  --radio: 4px;
+  --rotulo: "Hombros", "Arial Narrow", sans-serif;
+  --texto: "Plex", system-ui, sans-serif;
+  --mono: "Plex Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--tinta);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--papel);
+  font-family: var(--texto);
+  font-size: 16px;
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El cielo: dos capas de estrellas a distinta velocidad, grano de película y el borde
+   de un planeta abajo. */
+.estrellas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(140% 60% at 50% 115%, rgba(255, 90, 31, 0.16), transparent 55%),
+    radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%) 0 0 / 240px 240px,
+    radial-gradient(1px 1px at 72% 64%, #fff 50%, transparent 51%) 0 0 / 240px 240px,
+    radial-gradient(1px 1px at 38% 82%, #cfd6e4 50%, transparent 51%) 0 0 / 240px 240px,
+    radial-gradient(1.5px 1.5px at 88% 30%, #fff 50%, transparent 51%) 0 0 / 380px 380px,
+    radial-gradient(1px 1px at 22% 58%, #9fb0cc 50%, transparent 51%) 0 0 / 380px 380px,
+    var(--tinta);
+  animation: deriva 160s linear infinite;
+}
+
+.estrellas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@keyframes deriva {
+  to {
+    background-position:
+      0 0,
+      -240px 240px,
+      -240px 240px,
+      -240px 240px,
+      -380px 380px,
+      -380px 380px,
+      0 0;
+  }
+}
+
+main {
+  position: relative;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: max(14px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(28px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+b {
+  font-weight: 600;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.centro {
+  text-align: center;
+}
+
+.rotulo {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rotulo b {
+  color: var(--papel);
+}
+
+.tenue,
+.nota {
+  color: var(--gris);
+  font-size: 13px;
+}
+
+.nota {
+  margin-top: 10px;
+}
+
+.ico {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- Placas y controles ---------------------------------------------------------- */
+
+.panel {
+  background: var(--placa);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.panel > .rotulo:first-child {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.panel .cuenta {
+  margin-left: auto;
+  color: var(--papel);
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gris);
+  margin: 14px 0 6px;
+}
+
+.panel > label:first-of-type {
+  margin-top: 4px;
+}
+
+input {
+  width: 100%;
+  min-height: 50px;
+  border-radius: var(--radio);
+  border: 1px solid var(--linea-fuerte);
+  background: var(--tinta);
+  color: var(--papel);
+  font: 500 17px var(--texto);
+  padding: 0 14px;
+  transition: border-color 0.15s;
+}
+
+input::placeholder {
+  color: var(--gris-2);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.18);
+}
+
+input.mono {
+  font-family: var(--mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+input.cifra {
+  min-height: 64px;
+  font: 600 32px var(--mono);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+input.cifra::placeholder {
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 12px;
+  padding: 0 18px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background: var(--placa-2);
+  font-family: var(--rotulo);
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition:
+    transform 0.08s,
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.boton:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+.boton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.boton.principal {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.boton.principal:active:not(:disabled) {
+  background: var(--acento-2);
+}
+
+.boton.peligro {
+  background: transparent;
+  border-color: var(--mal);
+  color: var(--mal);
+}
+
+.boton.peligro:active {
+  background: var(--mal);
+  color: var(--tinta);
+}
+
+.boton.grande {
+  min-height: 60px;
+  font-size: 26px;
+  margin-top: 16px;
+}
+
+.enlace {
+  display: block;
+  margin: 14px auto 0;
+  padding: 10px;
+  background: none;
+  border: 0;
+  color: var(--gris);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fila {
+  display: flex;
+  gap: 10px;
+}
+
+.fila > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.fila .boton {
+  font-size: 18px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.aviso {
+  border-color: var(--acento);
+  color: var(--papel);
+}
+
+/* --- Portada --------------------------------------------------------------------- */
+
+.portada {
+  text-align: center;
+  padding: 26px 0 10px;
+}
+
+.portada .platillo {
+  width: 168px;
+  margin: 0 auto 6px;
+}
+
+.portada h1 {
+  font-family: var(--rotulo);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  font-size: clamp(64px, 21vw, 104px);
+}
+
+.portada h1 span {
+  display: block;
+}
+
+.portada h1 span:first-child {
+  color: var(--acento);
+  /* La «¡» de esta letra baja mucho: aire para que no toque la línea de abajo */
+  margin-bottom: 0.16em;
+}
+
+.lema {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: clamp(10px, 3.2vw, 12px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.portada.fin {
+  padding-top: 18px;
+}
+
+.portada.fin h1 {
+  font-size: clamp(34px, 10vw, 56px);
+  overflow-wrap: anywhere;
+  color: var(--papel);
+  margin-top: 8px;
+}
+
+.portada.fin .rotulo {
+  justify-content: center;
+}
+
+/* --- Barra de arriba ------------------------------------------------------------- */
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0 12px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.barra-izq,
+.barra-der {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.barra-izq {
+  flex: none;
+}
+
+.barra-der {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+/* En los móviles más estrechos el nombre sobra arriba: está en la clasificación */
+@media (max-width: 370px) {
+  .quien {
+    display: none;
+  }
+}
+
+.marca {
+  flex: none;
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--acento);
+  white-space: nowrap;
+}
+
+.mision {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+  padding-left: 10px;
+  border-left: 1px solid var(--linea-fuerte);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quien {
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 0;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marcador-propio {
+  font: 600 14px var(--mono);
+  color: var(--sobre-acento);
+  background: var(--acento);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.boton-salir {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background: transparent;
+  color: var(--gris);
+  font: 600 12px var(--mono);
+  text-transform: uppercase;
+}
+
+.boton-salir.confirmar {
+  border-color: var(--mal);
+  color: var(--mal);
+}
+
+/* --- Tablas (tripulación, clasificación, puntos) ---------------------------------- */
+
+.tabla {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabla li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  border-bottom: 1px dashed var(--linea);
+}
+
+.tabla li:last-child {
+  border-bottom: 0;
+}
+
+.tabla .puesto {
+  font: 500 12px var(--mono);
+  color: var(--gris-2);
+  width: 20px;
+}
+
+.tabla .nombre {
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabla .soy-yo .nombre::after {
+  content: " · tú";
+  color: var(--gris);
+  font-weight: 400;
+}
+
+.tabla .fuera {
+  opacity: 0.4;
+}
+
+.estado-linea {
+  font: 500 11px var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bien);
+}
+
+.fuera .estado-linea {
+  color: var(--gris);
+}
+
+.cifra-tabla {
+  font: 600 18px var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Insignias de los jugadores --------------------------------------------------- */
+
+.cara {
+  --c: #888;
+  --t: 38px;
+  width: var(--t);
+  height: var(--t);
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid var(--c);
+  background: color-mix(in srgb, var(--c) 18%, var(--tinta));
+  color: var(--c);
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: calc(var(--t) * 0.5);
+  line-height: 1;
+  padding-top: 1px;
+}
+
+.cara.peque {
+  --t: 28px;
+  border-width: 1.5px;
+}
+
+.cara.grande {
+  --t: 58px;
+  border-width: 3px;
+  box-shadow: 0 0 0 4px var(--tinta);
+}
+
+/* --- Sala de espera -------------------------------------------------------------- */
+
+.billete {
+  position: relative;
+  margin-top: 16px;
+  padding: 18px 16px 16px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 10px, rgba(255, 255, 255, 0.015) 10px 20px),
+    var(--placa);
+}
+
+/* Las muescas del billete */
+.billete::before,
+.billete::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--tinta);
+  border: 1px solid var(--linea-fuerte);
+}
+
+.billete::before {
+  left: -9px;
+  clip-path: inset(0 0 0 50%);
+}
+
+.billete::after {
+  right: -9px;
+  clip-path: inset(0 50% 0 0);
+}
+
+.codigo {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 0 4px;
+}
+
+.codigo span {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 58px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: 3px;
+  background: var(--tinta);
+  font: 600 34px var(--mono);
+  color: var(--acento);
+}
+
+.fichas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ficha {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background: transparent;
+  color: var(--gris);
+  font-weight: 500;
+  font-size: 14px;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.ficha .marca-ficha {
+  width: 0;
+  opacity: 0;
+  transition:
+    width 0.15s,
+    opacity 0.15s;
+}
+
+.ficha[aria-pressed="true"] {
+  border-color: var(--acento);
+  color: var(--papel);
+  background: rgba(255, 90, 31, 0.12);
+}
+
+.ficha[aria-pressed="true"] .marca-ficha {
+  width: 16px;
+  opacity: 1;
+  color: var(--acento);
+}
+
+.ficha .cuantas {
+  font: 500 11px var(--mono);
+  color: var(--gris-2);
+}
+
+.segmentado {
+  display: flex;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.segmentado button {
+  flex: 1;
+  min-height: 44px;
+  border: 0;
+  border-left: 1px solid var(--linea-fuerte);
+  background: transparent;
+  color: var(--gris);
+  font: 600 16px var(--mono);
+}
+
+.segmentado button:first-child {
+  border-left: 0;
+}
+
+.segmentado button[aria-pressed="true"] {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.interruptor {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 18px;
+  cursor: pointer;
+  color: var(--papel);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.interruptor small {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gris);
+}
+
+.interruptor input {
+  appearance: none;
+  flex: none;
+  width: 48px;
+  min-height: 0;
+  height: 28px;
+  padding: 0;
+  margin-top: 1px;
+  border-radius: 14px;
+  border: 1px solid var(--linea-fuerte);
+  background: var(--tinta);
+  position: relative;
+  transition: background 0.2s;
+}
+
+.interruptor input::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gris);
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.interruptor input:checked {
+  background: var(--acento);
+  border-color: var(--acento);
+}
+
+.interruptor input:checked::after {
+  transform: translateX(20px);
+  background: var(--sobre-acento);
+}
+
+.reglas summary,
+details.panel summary {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+details.panel summary::after {
+  content: "+";
+  font-size: 16px;
+  line-height: 1;
+}
+
+details.panel[open] summary::after {
+  content: "−";
+}
+
+details.panel[open] summary {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.reglas ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+  color: var(--papel);
+  font-size: 15px;
+}
+
+.reglas li {
+  counter-increment: paso;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  padding: 7px 0;
+}
+
+.reglas li::before {
+  content: counter(paso, decimal-leading-zero);
+  font: 600 12px var(--mono);
+  color: var(--acento);
+  padding-top: 3px;
+}
+
+/* --- La ronda -------------------------------------------------------------------- */
+
+.pregunta-caja {
+  padding: 20px 0 6px;
+}
+
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 11px var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+.etiqueta i {
+  width: 4px;
+  height: 4px;
+  background: var(--gris-2);
+}
+
+.etiqueta .ico {
+  width: 16px;
+  height: 16px;
+}
+
+.etiqueta.alien {
+  color: var(--bien);
+}
+
+.pregunta {
+  margin-top: 10px;
+  font-family: var(--texto);
+  font-weight: 600;
+  font-size: clamp(22px, 6.4vw, 28px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.secreto {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px dashed var(--bien);
+  border-radius: var(--radio);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.secreto .rotulo {
+  color: var(--bien);
+}
+
+.secreto b {
+  font: 600 30px var(--mono);
+  color: var(--bien);
+}
+
+.nave {
+  position: relative;
+  margin-top: 14px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background:
+    linear-gradient(var(--linea) 1px, transparent 1px) 0 0 / 100% 28px,
+    linear-gradient(90deg, var(--linea) 1px, transparent 1px) 0 0 / 28px 100%,
+    var(--fondo-2);
+  background-blend-mode: normal;
+  overflow: hidden;
+}
+
+/* La cuadrícula, muy tenue, como el cristal de una pantalla de radar */
+.nave::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 60% at 50% 30%, transparent, var(--fondo-2) 85%);
+  pointer-events: none;
+}
+
+.nave-cuerpo {
+  position: relative;
+  width: min(84%, 320px);
+  margin: 24px auto 0;
+}
+
+.platillo {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.platillo .luz {
+  fill: #ffcf7a;
+}
+
+.platillo .luz.l1 {
+  fill: #7fe7ff;
+}
+
+.platillo .luz {
+  animation: luces 1.4s steps(2) infinite;
+}
+
+.platillo .luz.l1 {
+  animation-delay: 0.7s;
+}
+
+@keyframes luces {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.platillo .motor {
+  animation: motor 0.18s ease-in-out infinite alternate;
+  transform-origin: 150px 112px;
+}
+
+@keyframes motor {
+  to {
+    transform: scaleX(0.86);
+    opacity: 0.7;
+  }
+}
+
+.flota {
+  animation: flota 4s ease-in-out infinite;
+}
+
+@keyframes flota {
+  50% {
+    transform: translateY(-6px) rotate(-1.2deg);
+  }
+}
+
+.platillo .gorra {
+  fill: var(--acento);
+}
+
+/* Quien toma el mando sube desde dentro del platillo hasta la cúpula */
+.platillo .piloto.entra {
+  animation: al-mando 0.6s cubic-bezier(0.25, 1.4, 0.5, 1) both;
+}
+
+@keyframes al-mando {
+  from {
+    transform: translateY(46px);
+  }
+}
+
+.lectura {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px 12px;
+  padding: 10px 16px 14px;
+}
+
+.lectura > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cifra-grande {
+  font: 600 clamp(40px, 13vw, 58px) var(--mono);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--acento);
+  font-variant-numeric: tabular-nums;
+}
+
+.cifra-grande.vacia {
+  color: var(--gris-2);
+}
+
+.cifra-grande.talla-m {
+  font-size: clamp(30px, 9.5vw, 44px);
+}
+
+.cifra-grande.talla-s {
+  font-size: clamp(24px, 7.4vw, 34px);
+}
+
+.cifra-grande,
+.respuesta {
+  white-space: nowrap;
+}
+
+.al-mando {
+  margin-left: auto;
+  text-align: right;
+  align-items: flex-end;
+}
+
+.al-mando .rotulo {
+  justify-content: flex-end;
+}
+
+.al-mando b {
+  font-size: 16px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* El rayo tractor: la tripulación flota debajo de la nave */
+.rayo {
+  position: relative;
+  padding: 26px 12px 16px;
+}
+
+.rayo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(127, 231, 255, 0.12), transparent 80%);
+  clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%);
+}
+
+.rayo .tripulacion {
+  position: relative;
+}
+
+.tripulacion {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 14px;
+}
+
+.tripulacion li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 58px;
+  font-size: 12px;
+  color: var(--gris);
+}
+
+.tripulacion li span:last-child {
+  max-width: 58px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tripulacion li.turno {
+  color: var(--papel);
+}
+
+.tripulacion li.turno .cara {
+  box-shadow:
+    0 0 0 3px var(--fondo-2),
+    0 0 0 5px var(--acento);
+  animation: late 1.1s ease-in-out infinite;
+}
+
+@keyframes late {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.bajados {
+  position: relative;
+  padding: 12px 16px 14px;
+  border-top: 1px dashed var(--linea-fuerte);
+}
+
+.bajados ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bajados li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid rgba(255, 77, 77, 0.45);
+  border-radius: 99px;
+  font-size: 13px;
+  max-width: 100%;
+}
+
+.bajados .nombre {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bajados .mono {
+  color: var(--mal);
+  font-size: 12px;
+}
+
+/* El puesto de mando: lo que toca hacer */
+.mando {
+  margin-top: 12px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--placa);
+}
+
+.mando p {
+  color: var(--gris);
+  font-size: 15px;
+}
+
+.mando p b {
+  color: var(--papel);
+}
+
+.mando-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.mi-turno {
+  border-color: var(--acento);
+  border-top-width: 3px;
+}
+
+.mi-turno .mando-cab .rotulo {
+  color: var(--acento);
+}
+
+.mando.entra {
+  animation: entra 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@keyframes entra {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+}
+
+.subida {
+  display: grid;
+  gap: 8px;
+}
+
+.atajos {
+  display: flex;
+  gap: 8px;
+}
+
+.atajos button {
+  flex: 1;
+  min-height: 42px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background: transparent;
+  font: 600 15px var(--mono);
+  color: var(--papel);
+}
+
+.atajos button:active {
+  background: var(--placa-2);
+}
+
+.reloj {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font: 600 12px var(--mono);
+  color: var(--gris);
+}
+
+.reloj svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.reloj circle {
+  fill: none;
+  stroke: var(--linea-fuerte);
+  stroke-width: 2.5;
+}
+
+.reloj circle.resto {
+  stroke: var(--acento);
+  stroke-dasharray: 97.4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.9s linear;
+}
+
+.reloj.apurado {
+  color: var(--mal);
+}
+
+.reloj.apurado circle.resto {
+  stroke: var(--mal);
+}
+
+.bitacora ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: var(--gris);
+}
+
+.bitacora li {
+  position: relative;
+  padding: 5px 0 5px 18px;
+}
+
+.bitacora li::before {
+  content: "›";
+  position: absolute;
+  left: 2px;
+  color: var(--acento);
+  font-family: var(--mono);
+}
+
+.bitacora li:first-child {
+  color: var(--papel);
+}
+
+.bitacora b {
+  color: var(--papel);
+}
+
+/* --- La respuesta ---------------------------------------------------------------- */
+
+.revelacion {
+  margin-top: 14px;
+  padding: 18px 16px 16px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--placa);
+  text-align: center;
+  overflow: hidden;
+}
+
+.revelacion .rotulo {
+  justify-content: center;
+}
+
+.escena {
+  position: relative;
+  height: 112px;
+  margin: 0 -16px 10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.escena .platillo {
+  width: 150px;
+}
+
+.suelo {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -34px;
+  height: 56px;
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(60% 100% at 50% 0%, #2a3346, #10141c);
+  border-top: 1px solid var(--linea-fuerte);
+}
+
+.estrella .suelo {
+  background: radial-gradient(60% 100% at 50% 0%, #3a1a14, #10141c);
+}
+
+.llega.nueva .viajero {
+  animation: aterriza 1.6s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes aterriza {
+  from {
+    transform: translate(-140px, -70px) rotate(-14deg) scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(14px);
+  }
+}
+
+.llega .viajero {
+  transform: translateY(14px);
+}
+
+.estrella.nueva .viajero {
+  animation: choca 1.2s cubic-bezier(0.5, 0, 0.9, 0.6) both;
+}
+
+@keyframes choca {
+  0% {
+    transform: translate(-140px, -70px) rotate(10deg) scale(0.7);
+  }
+  75% {
+    transform: translate(0, 24px) rotate(28deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(10px, 40px) rotate(42deg) scale(0.9);
+    opacity: 0.2;
+  }
+}
+
+.estrella .viajero {
+  transform: translate(10px, 40px) rotate(42deg) scale(0.9);
+  opacity: 0.2;
+}
+
+/* La pantalla entera tiembla al estrellarse */
+.estrella.nueva {
+  animation: temblor 0.5s 0.9s both;
+}
+
+@keyframes temblor {
+  20% {
+    transform: translate(-6px, 2px);
+  }
+  40% {
+    transform: translate(5px, -3px);
+  }
+  60% {
+    transform: translate(-3px, 2px);
+  }
+  80% {
+    transform: translate(2px, -1px);
+  }
+}
+
+.respuesta {
+  margin: 4px 0 2px;
+  font: 600 clamp(56px, 18vw, 84px) var(--mono);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.respuesta.talla-m {
+  font-size: clamp(38px, 12vw, 60px);
+}
+
+.respuesta.talla-s {
+  font-size: clamp(26px, 8vw, 40px);
+}
+
+.sello {
+  display: inline-block;
+  margin: 12px 0 8px;
+  padding: 4px 14px 2px;
+  border: 3px solid currentColor;
+  border-radius: 3px;
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: clamp(22px, 7.5vw, 30px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-4deg);
+}
+
+.llega .sello {
+  color: var(--bien);
+}
+
+.estrella .sello {
+  color: var(--mal);
+}
+
+.nueva .sello {
+  animation: sello 0.35s 1.3s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+
+@keyframes sello {
+  from {
+    transform: rotate(-4deg) scale(2.2);
+    opacity: 0;
+  }
+}
+
+.detalle {
+  color: var(--gris);
+  font-size: 14px;
+}
+
+.detalle b {
+  color: var(--papel);
+}
+
+.linea-alien {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: var(--bien);
+  font-size: 14px;
+}
+
+.puntos-ronda {
+  margin-top: 14px;
+  text-align: left;
+  border-top: 1px solid var(--linea);
+}
+
+.puntos-ronda .mas,
+.puntos-ronda .menos,
+.puntos-ronda .cero {
+  font: 600 18px var(--mono);
+}
+
+.mas {
+  color: var(--bien);
+}
+
+.menos {
+  color: var(--mal);
+}
+
+.cero {
+  color: var(--gris-2);
+}
+
+/* --- Final ------------------------------------------------------------------------ */
+
+.podio {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 22px 0 4px;
+}
+
+.escalon {
+  flex: 1;
+  max-width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.escalon .nombre {
+  font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.peana {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 8px;
+  border: 1px solid var(--linea-fuerte);
+  border-bottom: 0;
+  background: var(--placa);
+}
+
+.p1 .peana {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.peana .mono {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.peana b {
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.podio.nueva .peana {
+  animation: crece 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  transform-origin: bottom;
+}
+
+.podio.nueva .p2 .peana {
+  animation-delay: 0.2s;
+}
+
+.podio.nueva .p3 .peana {
+  animation-delay: 0.35s;
+}
+
+@keyframes crece {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* --- Avisos ----------------------------------------------------------------------- */
+
+.conectando {
+  min-height: 70vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+}
+
+.conectando .platillo {
+  width: 140px;
+}
+
+.sin-red {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--mal);
+  border-radius: var(--radio);
+  font: 600 11px var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mal);
+  text-align: center;
+}
+
+#tostada {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 12px 16px;
+  border: 1px solid var(--acento);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+  background: var(--placa-2);
+  color: var(--papel);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  animation: entra 0.3s both;
+}
+
+/* --- Quien manda ------------------------------------------------------------------ */
+
+.manda {
+  flex: none;
+  font: 600 10px var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acento);
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+.echar {
+  flex: none;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background: transparent;
+  color: var(--gris);
+  font: 600 11px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.echar.confirmar {
+  border-color: var(--mal);
+  background: var(--mal);
+  color: var(--tinta);
+}
+
+.tabla .echar + .cifra-tabla {
+  margin-left: 4px;
+}
+
+.solo-lectura .ficha,
+.solo-lectura .segmentado button,
+.solo-lectura .interruptor {
+  cursor: default;
+}
+
+.solo-lectura .ficha:not([aria-pressed="true"]) {
+  opacity: 0.45;
+}
+
+.espera-despegue {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px dashed var(--linea-fuerte);
+  border-radius: var(--radio);
+  text-align: center;
+  color: var(--gris);
+  font-size: 15px;
+}
+
+.espera-despegue b {
+  color: var(--papel);
+}
+
+/* --- Firma y proyectos -------------------------------------------------------------- */
+
+.firma {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--linea);
+}
+
+.monograma {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--linea-fuerte);
+  border-radius: 2px;
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--acento);
+  background:
+    linear-gradient(135deg, transparent 0 calc(50% - 0.5px), var(--linea) 50%, transparent calc(50% + 0.5px)),
+    var(--tinta);
+}
+
+.firma-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.firma-texto .rotulo {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+.firma-texto b {
+  font-family: var(--rotulo);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.firma-enlace {
+  margin-left: auto;
+  max-width: 128px;
+  text-align: right;
+  color: var(--gris);
+  font-size: 13px;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* En los móviles más estrechos el enlace baja a su línea, alineado con el nombre */
+@media (max-width: 370px) {
+  .firma {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .firma-enlace {
+    flex-basis: 100%;
+    max-width: none;
+    margin-left: 46px;
+    text-align: left;
+  }
+}
+
+.proyecto {
+  position: relative;
+  margin-top: 12px;
+  padding: 20px 16px 16px;
+  border: 1px solid var(--acento);
+  border-radius: var(--radio);
+  background:
+    linear-gradient(90deg, rgba(255, 90, 31, 0.1), transparent 70%),
+    var(--placa);
+}
+
+.proyecto .rotulo {
+  color: var(--acento);
+}
+
+.proyecto h2 {
+  margin-top: 8px;
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.proyecto p:not(.rotulo) {
+  margin-top: 8px;
+  color: var(--gris);
+  font-size: 15px;
+}
+
+.proyecto .boton {
+  text-decoration: none;
+  color: var(--papel);
+  border-color: var(--acento);
+}
+
+/* --- Varios en el mismo móvil ------------------------------------------------------- */
+
+.movil-de {
+  display: block;
+  font: 500 11px var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--gris);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sin-movil {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--linea-fuerte);
+}
+
+.sin-movil label {
+  margin-top: 0;
+}
+
+.sin-movil .fila {
+  align-items: stretch;
+}
+
+.sin-movil .boton {
+  flex: none;
+  width: auto;
+  margin: 0;
+  min-height: 50px;
+  font-size: 18px;
+}
+
+.pasar-a {
+  font-family: var(--rotulo);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--papel) !important;
+}
+
+.pasar-a b {
+  color: var(--acento);
+  font-weight: 900;
+}
+
+.prestado {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--acento);
+  border-radius: var(--radio);
+  background: rgba(255, 90, 31, 0.1);
+  font-size: 14px;
+  color: var(--gris);
+}
+
+.prestado b {
+  color: var(--papel);
+}
+
+.secreto span:not(.rotulo) {
+  font-size: 13px;
+  color: var(--gris);
+  text-align: right;
+}
+
+/* --- Versión nueva ---------------------------------------------------------------- */
+
+#version-nueva {
+  position: fixed;
+  left: 50%;
+  top: max(10px, env(safe-area-inset-top));
+  transform: translateX(-50%);
+  z-index: 30;
+  width: min(calc(100% - 24px), 516px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 14px;
+  border: 1px solid var(--acento);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+  background: var(--placa-2);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+  animation: baja 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+#version-nueva span {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--gris);
+}
+
+#version-nueva b {
+  display: block;
+  color: var(--papel);
+  font-size: 15px;
+}
+
+#version-nueva .boton {
+  width: auto;
+  flex: none;
+  margin: 0;
+  min-height: 44px;
+  font-size: 18px;
+}
+
+@keyframes baja {
+  from {
+    transform: translate(-50%, -20px);
+    opacity: 0;
+  }
+}
+
+/* --- El alien: su pantalla se vuelve un monitor de fósforo verde ------------------ */
+
+html.alien {
+  --acento: #6ee7a0;
+  --acento-2: #9ff3c4;
+  --sobre-acento: #021208;
+  --papel: #c9f7d9;
+  --gris: #6fae86;
+  --gris-2: #3f6b51;
+  --linea: #143322;
+  --linea-fuerte: #1e4a31;
+  --placa: #06150d;
+  --placa-2: #0a1f13;
+  --fondo-2: #041009;
+  --tinta: #020a05;
+}
+
+html.alien body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px);
+  animation: parpadeo 6s infinite;
+}
+
+@keyframes parpadeo {
+  0%,
+  96%,
+  100% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.6;
+  }
+}
+
+html.alien .estrellas {
+  background: radial-gradient(120% 70% at 50% 0%, rgba(110, 231, 160, 0.14), transparent 60%),
+    var(--tinta);
+}
+
+html.alien .pregunta,
+html.alien .cifra-grande,
+html.alien .secreto b {
+  text-shadow: 0 0 12px rgba(110, 231, 160, 0.45);
+}
+
+.alien-mando {
+  border-color: var(--bien);
+  border-top-width: 3px;
+}
+
+.alien-mando .rotulo,
+.espera-mando .rotulo .ico {
+  color: var(--bien);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
