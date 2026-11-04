@@ -1,0 +1,221 @@
+/* La portada de la sala de juegos: la misma familia que ¡Paren la nave! (tinta,
+   naranja de seguridad, rótulos condensados), sin depender de su hoja de estilos. */
+
+@font-face {
+  font-family: "Hombros";
+  src: url("/estaticos/fuentes/big-shoulders-display-latin-900-normal.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex";
+  src: url("/estaticos/fuentes/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex";
+  src: url("/estaticos/fuentes/ibm-plex-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plex Mono";
+  src: url("/estaticos/fuentes/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --tinta: #07090e;
+  --placa: #11161f;
+  --placa-2: #161c27;
+  --linea: #232b39;
+  --linea-fuerte: #343f52;
+  --papel: #ece6d6;
+  --gris: #8b93a4;
+  --gris-2: #5d6576;
+  --acento: #ff5a1f;
+  --sobre-acento: #140600;
+  --radio: 4px;
+  --rotulo: "Hombros", "Arial Narrow", sans-serif;
+  --texto: "Plex", system-ui, sans-serif;
+  --mono: "Plex Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--tinta);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--tinta);
+  color: var(--papel);
+  font: 400 16px/1.5 var(--texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+.sala {
+  max-width: 560px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: max(40px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+}
+
+.etiqueta {
+  margin: 0 0 8px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+h1 {
+  margin: 0;
+  font: 900 clamp(52px, 16vw, 84px) / 0.9 var(--rotulo);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.entradilla {
+  margin: 14px 0 0;
+  max-width: 36ch;
+  color: var(--gris);
+}
+
+.juegos {
+  list-style: none;
+  margin: 36px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid var(--linea);
+  padding-top: 24px;
+}
+
+.ficha {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 4px 16px;
+  align-items: center;
+  padding: 18px 16px 16px;
+  background: var(--placa);
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  color: inherit;
+  text-decoration: none;
+}
+
+a.ficha {
+  transition: border-color 0.15s, background 0.15s;
+}
+
+a.ficha:hover,
+a.ficha:focus-visible {
+  border-color: var(--acento);
+  background: var(--placa-2);
+}
+
+a.ficha:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+.numero {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font: 500 11px var(--mono);
+  color: var(--gris-2);
+  letter-spacing: 0.1em;
+}
+
+.emblema {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radio);
+  display: block;
+}
+
+.emblema.vacio {
+  border: 1px dashed var(--linea-fuerte);
+}
+
+.cuerpo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nombre {
+  font: 900 30px/1 var(--rotulo);
+  text-transform: uppercase;
+}
+
+.lema {
+  margin-top: 4px;
+  color: var(--papel);
+}
+
+.datos {
+  margin-top: 6px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.jugar {
+  grid-column: 1 / -1;
+  margin-top: 14px;
+  padding: 12px;
+  text-align: center;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  border-radius: var(--radio);
+  font: 900 20px/1 var(--rotulo);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.taller {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--linea);
+}
+
+.taller .nombre {
+  color: var(--gris-2);
+}
+
+.taller .lema {
+  color: var(--gris-2);
+}
+
+.pie {
+  margin-top: auto;
+  padding-top: 40px;
+  font: 500 11px var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gris-2);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.ficha {
+    transition: none;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Sala de juegos",
+  "short_name": "Sala de juegos",
+  "description": "Juegos para jugar con los amigos, cada uno en su móvil.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07090e",
+  "theme_color": "#07090e",
+  "icons": [
+    { "src": "/estaticos/iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/estaticos/iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/estaticos/iconos/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

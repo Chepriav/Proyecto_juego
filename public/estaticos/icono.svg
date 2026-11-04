@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="fondo" cx=".5" cy="1.05" r=".85">
+      <stop offset="0" stop-color="#ff5a1f" stop-opacity=".55"/>
+      <stop offset=".55" stop-color="#ff5a1f" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1f3f7"/><stop offset=".45" stop-color="#a3acbe"/>
+      <stop offset=".72" stop-color="#4b5366"/><stop offset="1" stop-color="#1e2230"/>
+    </linearGradient>
+    <linearGradient id="cristal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d6f1ff" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#4f97d6" stop-opacity=".75"/>
+    </linearGradient>
+    <linearGradient id="rayo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb37a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#07090e"/>
+  <rect width="512" height="512" fill="url(#fondo)"/>
+  <g fill="#fff" opacity=".7">
+    <circle cx="86" cy="96" r="3"/><circle cx="420" cy="74" r="2.5"/><circle cx="452" cy="196" r="2"/>
+    <circle cx="58" cy="230" r="2"/><circle cx="372" cy="128" r="1.6"/><circle cx="150" cy="60" r="1.6"/>
+  </g>
+  <g id="nave">
+    <path d="M206 300h100l66 150H140z" fill="url(#rayo)"/>
+    <ellipse cx="256" cy="304" rx="78" ry="14" fill="#ff8a4c" opacity=".9"/>
+    <path d="M176 262a80 76 0 0 1 160 0z" fill="url(#cristal)" stroke="#e6f6ff" stroke-width="4"/>
+    <path d="M204 222a56 44 0 0 1 38-22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+    <ellipse cx="256" cy="276" rx="196" ry="38" fill="url(#metal)"/>
+    <ellipse cx="256" cy="266" rx="164" ry="15" fill="#fff" opacity=".3"/>
+    <g fill="#ff5a1f">
+      <circle cx="108" cy="286" r="8"/><circle cx="158" cy="296" r="8"/><circle cx="206" cy="301" r="8"/>
+      <circle cx="256" cy="303" r="8"/><circle cx="306" cy="301" r="8"/><circle cx="354" cy="296" r="8"/>
+      <circle cx="404" cy="286" r="8"/>
+    </g>
+  </g>
+</svg>
