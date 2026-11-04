@@ -3,7 +3,7 @@
   "short_name": "Paren la nave",
   "description": "Acércate a la respuesta. Sin pasarte.",
   "lang": "es",
-  "start_url": "/",
+  "start_url": "/nave",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

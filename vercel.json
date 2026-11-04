@@ -10,8 +10,12 @@
       "destination": "/api/index"
     },
     {
+      "source": "/nave",
+      "destination": "/nave/index.html"
+    },
+    {
       "source": "/s/(.*)",
-      "destination": "/index.html"
+      "destination": "/nave/index.html"
     }
   ],
   "headers": [

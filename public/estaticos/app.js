@@ -535,6 +535,7 @@ function vistaInicio() {
       <button class="boton">Entrar</button>
     </form>
     ${REGLAS}
+    <a class="volver-sala" href="/">Más juegos en la sala</a>
     ${firma()}`;
 }
 
@@ -995,7 +996,7 @@ async function salir() {
   }
   olvidarSesion();
   estado.codigo = null;
-  history.replaceState(null, "", "/");
+  history.replaceState(null, "", "/nave");
   pintar();
   tostada("Has salido de la nave.");
 }
@@ -1037,7 +1038,7 @@ raiz.addEventListener("click", async (evento) => {
   switch (boton.dataset.accion) {
     case "nueva":
       estado.codigo = null;
-      history.replaceState(null, "", "/");
+      history.replaceState(null, "", "/nave");
       pintar();
       break;
     case "compartir":

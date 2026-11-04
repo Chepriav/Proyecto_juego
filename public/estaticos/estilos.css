@@ -1697,6 +1697,26 @@ details.panel[open] summary {
 
 /* --- Firma y proyectos -------------------------------------------------------------- */
 
+/* Vuelta a la sala de juegos (la portada en /), solo desde la portada de la nave. */
+.volver-sala {
+  display: block;
+  margin-top: 24px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+  text-decoration: none;
+}
+
+.volver-sala::before {
+  content: "← ";
+}
+
+.volver-sala:hover,
+.volver-sala:focus-visible {
+  color: var(--acento);
+}
+
 .firma {
   display: flex;
   align-items: center;

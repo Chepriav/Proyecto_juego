@@ -134,6 +134,6 @@ def test_la_app_se_puede_instalar_con_su_icono():
     assert manifiesto["display"] == "standalone"
     for icono in manifiesto["icons"]:
         assert cliente.get(icono["src"]).status_code == 200
-    pagina = cliente.get("/").text
+    pagina = cliente.get("/nave").text
     assert "apple-touch-icon" in pagina and "manifest.webmanifest" in pagina
     assert cliente.get("/estaticos/iconos/apple-touch-icon.png").status_code == 200

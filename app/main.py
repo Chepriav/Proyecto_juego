@@ -298,14 +298,23 @@ def no_existe(resto: str):
 # En Vercel la página y lo de /estaticos los sirve su CDN desde public/, y la función
 # no lleva esa carpeta: sin `check_dir=False` la app no arranca. Esto es para local y
 # para un servidor propio.
-app.mount(
-    "/estaticos",
-    StaticFiles(directory=PUBLICO / "estaticos", check_dir=False),
-    name="estaticos",
-)
+for carpeta in ("estaticos", "portada"):
+    app.mount(
+        f"/{carpeta}",
+        StaticFiles(directory=PUBLICO / carpeta, check_dir=False),
+        name=carpeta,
+    )
+
+
+# La portada de la sala de juegos va en /; cada juego, en su carpeta de public/.
+@app.get("/nave", include_in_schema=False)
+@app.get("/nave/", include_in_schema=False)
+@app.get("/s/{codigo}", include_in_schema=False)
+def pagina_nave(codigo: str = "") -> FileResponse:
+    # La misma página para /nave y para /s/CODIGO: el enlace que se pasa al grupo.
+    return FileResponse(PUBLICO / "nave" / "index.html")
 
 
 @app.get("/{resto:path}", include_in_schema=False)
-def pagina(resto: str) -> FileResponse:
-    # La misma página para / y para /s/CODIGO: el enlace que se pasa al grupo.
+def portada(resto: str) -> FileResponse:
     return FileResponse(PUBLICO / "index.html")

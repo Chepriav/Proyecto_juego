@@ -1,3 +1,13 @@
+# Sala de juegos
+
+Una portada (`public/index.html`, estilos en `public/portada/`) con una ficha por
+juego; solo da acceso, no guarda nada. Cada juego va en su carpeta de `public/` y en
+su dirección: ¡Paren la nave! en `/nave` (sus salas siguen en `/s/CODIGO` y su API en
+`/api`). Un juego nuevo: su carpeta, su ficha, sus rutas en `main.py` y en
+`vercel.json`, y que su página enlace de vuelta a `/`. La portada es de la misma
+familia que la nave (tinta, naranja, Big Shoulders) y usa sus fuentes de
+`/estaticos/fuentes`. Lo que sigue es de la nave.
+
 # ¡Paren la nave!
 
 Juego de preguntas con respuesta numérica para un grupo de amigos, cada uno en su
@@ -26,7 +36,8 @@ app/preguntas.py  categorías, dificultades, el banco ya montado y las del alien
 app/almacen.py    dónde se guardan las partidas: memoria o Upstash (API REST)
 app/main.py       la API (token en la cabecera X-Token) y la página en local
 api/index.py      la entrada de Vercel
-public/           la página: index.html y estaticos/app.js, que pinta según el estado
+public/index.html la portada de la sala de juegos (estilos en public/portada/)
+public/nave/      la página de la nave; estaticos/app.js la pinta según el estado
 ```
 
 ## Decisiones

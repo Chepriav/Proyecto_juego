@@ -1,3 +1,16 @@
+# Sala de juegos
+
+Juegos para jugar con los amigos, cada uno en su móvil. En `/` está la portada con un
+juego por ficha; al pinchar en uno se abre el suyo:
+
+| Juego | Dirección |
+| --- | --- |
+| ¡Paren la nave! | `/nave` (y las salas en `/s/CODIGO`) |
+
+**Añadir un juego:** su página en `public/<juego>/index.html`, una ficha más en
+`public/index.html` y, si tiene API, sus rutas en `app/` con su prefijo en
+`vercel.json`. Lo de abajo es de ¡Paren la nave!
+
 # ¡Paren la nave!
 
 El juego de mesa de acercarse a la respuesta sin pasarse, para jugar con los amigos,
@@ -64,7 +77,7 @@ La página la sirve el CDN de Vercel (`public/`) y la API, una función de Pytho
 se guardan en Redis (Upstash, plan gratis). Todo se hace desde el panel de Vercel,
 también desde el móvil:
 
-1. **Add New → Project** e importar `paren-la-nave` de GitHub. Si no sale, «Adjust
+1. **Add New → Project** e importar `Proyecto_juego` de GitHub. Si no sale, «Adjust
    GitHub App Permissions» y darle acceso a ese repositorio. Sin tocar nada: **Deploy**.
 2. En el proyecto, **Storage → Create Database → Upstash for Redis** (plan gratis,
    región **Frankfurt**, `eu-central-1`, la misma que las funciones: `regions` en

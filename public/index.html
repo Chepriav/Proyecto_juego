@@ -5,24 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#07090e" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <title>¡Paren la nave!</title>
-    <meta name="description" content="Acércate a la respuesta sin pasarte. Para jugar con los amigos, cada uno en su móvil." />
+    <title>Sala de juegos</title>
+    <meta name="description" content="Juegos para jugar con los amigos, cada uno en su móvil. Elige uno y a jugar." />
     <link rel="icon" href="/estaticos/icono.svg" type="image/svg+xml" />
-    <link rel="manifest" href="/estaticos/manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="/estaticos/iconos/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Paren la nave" />
     <link rel="preload" href="/estaticos/fuentes/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/estaticos/fuentes/ibm-plex-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/estaticos/fuentes/ibm-plex-mono-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/estaticos/estilos.css" />
+    <link rel="stylesheet" href="/portada/portada.css" />
   </head>
   <body>
-    <div class="estrellas" aria-hidden="true"></div>
-    <main id="app" aria-live="polite"></main>
-    <div id="tostada" role="status" hidden></div>
-    <script src="/estaticos/app.js"></script>
+    <main class="sala">
+      <header class="cabecera">
+        <p class="etiqueta">Con los amigos · cada uno en su móvil</p>
+        <h1>Sala de juegos</h1>
+        <p class="entradilla">Elige uno, pasa el enlace al grupo y a jugar. Sin cuentas, sin instalar nada.</p>
+      </header>
+
+      <!-- Un juego nuevo es una ficha más: copiar la de abajo y cambiar enlace, nombre y textos. -->
+      <ul class="juegos">
+        <li>
+          <a class="ficha" href="/nave">
+            <span class="numero">01</span>
+            <img class="emblema" src="/estaticos/icono.svg" alt="" width="64" height="64" />
+            <span class="cuerpo">
+              <span class="nombre">¡Paren la nave!</span>
+              <span class="lema">Acércate a la respuesta sin pasarte.</span>
+              <span class="datos">De 2 a 12 · preguntas de números · rondas del alien</span>
+            </span>
+            <span class="jugar">Jugar</span>
+          </a>
+        </li>
+        <li>
+          <div class="ficha taller" aria-label="Próximo juego, en preparación">
+            <span class="numero">02</span>
+            <span class="emblema vacio" aria-hidden="true"></span>
+            <span class="cuerpo">
+              <span class="nombre">Próximamente</span>
+              <span class="lema">El siguiente juego está en el taller.</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <footer class="pie">Diseño y desarrollo · Charly</footer>
+    </main>
   </body>
 </html>
