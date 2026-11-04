@@ -1,9 +1,9 @@
 {
-  "name": "¡Paren la nave!",
-  "short_name": "Paren la nave",
-  "description": "Acércate a la respuesta. Sin pasarte.",
+  "name": "Sala de juegos",
+  "short_name": "Sala de juegos",
+  "description": "Juegos para jugar con los amigos, cada uno en su móvil.",
   "lang": "es",
-  "start_url": "/nave",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

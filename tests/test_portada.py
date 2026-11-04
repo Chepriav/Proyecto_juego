@@ -29,7 +29,7 @@ def test_cada_juego_de_la_portada_abre_su_pagina():
     enlaces = re.findall(r'class="ficha" href="([^"]+)"', pagina)
     assert enlaces
     for enlace in enlaces:
-        assert "Sala de juegos" not in cliente.get(enlace).text, enlace
+        assert "<title>Sala de juegos</title>" not in cliente.get(enlace).text, enlace
 
 
 def test_lo_que_pide_la_portada_existe():
@@ -51,3 +51,11 @@ def test_vercel_lleva_la_nave_y_sus_salas_a_su_pagina():
 
 def test_desde_la_nave_se_vuelve_a_la_sala():
     assert 'class="volver-sala" href="/"' in cliente.get("/estaticos/app.js").text
+
+
+def test_la_app_instalada_abre_la_sala_y_no_un_juego():
+    manifiesto = cliente.get("/estaticos/manifest.webmanifest").json()
+    assert manifiesto["start_url"] == "/"
+    assert manifiesto["name"] == "Sala de juegos"
+    for ruta in ("/", "/nave"):
+        assert "manifest.webmanifest" in cliente.get(ruta).text, ruta

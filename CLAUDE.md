@@ -6,7 +6,10 @@ su dirección: ¡Paren la nave! en `/nave` (sus salas siguen en `/s/CODIGO` y su
 `/api`). Un juego nuevo: su carpeta, su ficha, sus rutas en `main.py` y en
 `vercel.json`, y que su página enlace de vuelta a `/`. La portada es de la misma
 familia que la nave (tinta, naranja, Big Shoulders) y usa sus fuentes de
-`/estaticos/fuentes`. Lo que sigue es de la nave.
+`/estaticos/fuentes`. **La app que se instala es la sala**, no un juego: el manifiesto
+empieza en `/` y se enlaza desde la portada y desde la nave, con el nombre «Sala de
+juegos» (lo pidió el dueño: instalada le seguía abriendo la nave). Lo que sigue es de
+la nave.
 
 # ¡Paren la nave!
 
